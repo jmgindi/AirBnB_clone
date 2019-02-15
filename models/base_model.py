@@ -24,17 +24,19 @@ class BaseModel():
 
     def __str__(self):
         obj_str = ''
-        obj_str += '[<{}>] '.format(self.__class__.__name__)
-        obj_str += '(<{}>) '.format(self.id)
-        obj_str += '<{}>'.format(self.__dict__)
+        obj_str += '[{}] '.format(self.__class__.__name__)
+        obj_str += '({}) '.format(self.id)
+        obj_str += '{}'.format(self.__dict__)
         return obj_str
 
     def save(self):
         self.updated_at = datetime.datetime.now()
 
     def to_dict(self):
-        self.__dict__['created_at'] = datetime.date.isoformat(self.created_at)
-        self.__dict__['updated_at'] = datetime.date.isoformat(self.updated_at)
+        if type(self.created_at) is not str:
+            self.__dict__['created_at'] = self.created_at.isoformat()
+        if type(self.updated_at) is not str:
+            self.__dict__['updated_at'] = self.updated_at.isoformat()
         self.__dict__['__class__'] = self.__class__.__name__
         return self.__dict__
         
