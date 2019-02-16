@@ -16,12 +16,12 @@ class HBNBCommand(cmd.Cmd):
     interpreter for the HBNB project
     
     Attributes:
-    intro - 
     prompt - 
     file - 
     """
     prompt = "(hbnb) "
     file = None        
+    allowed = ["BaseModel"]
 
 
     def do_quit(self, arg):
@@ -50,27 +50,35 @@ class HBNBCommand(cmd.Cmd):
         """
         if not args:
             print("** class name missing **")
-        if args[0] != "BaseModel":
+        if args[0] not in self.__allowed:
             print("** class doesn't exist **")
         obj = BaseModel()
         return obj
 
     def do_show(self, *args):
+        """prints the string representation of a model
+        """
         if not args:
             print("** class name missing **")
-        if args[0] != "BaseModel":
+            return
+        if args[0] not in self.__allowed:
             print("** class doesn't exist **")
+            return
         if not args[1]:
             print("** instance id missing **")
+            return
         """
         if args[1] not in [a thing]:
             print("** no instance found **")
         """
+        print(storage.__objects[(args[0] + "." + args[1])])
 
     def do_destroy(self, *args):
+        """deletes an instance of a model
+        """
         if not args:
             print("** class name missing **")
-        if args[0] != "BaseModel":
+        if args[0] not in self.__allowed:
             print("** class doesn't exist **")
         if not args[1]:
             print("** instance id missing **")
@@ -80,10 +88,35 @@ class HBNBCommand(cmd.Cmd):
         """
 
     def do_all(self, *args):
-        allowed = ["BaseModel", "FileStorage"]
-        if args[0] not in allowed:
+        """prints all objects of a certain type
+        """
+        if args[0] not in self.__allowed:
             print("** class doesn't exist **")
+        else:
+            print([obj for obj in storage.__objects if 
+                   args[0] in obj.id])
 
+    def do_update(self, *args):
+        """updates the value of an attribute for a
+        given object
+        """
+        if not args:
+            print("** class name missing **")
+        if args[0] not in self.__allowed:
+            print("** class doesn't exist **")
+        if not args[1]:
+            print("** instance id missing **")
+
+        obj_id = args[0] + "." + args[1]
+
+        if obj_id not in storage.__objects.keys():
+            print("** no instance found **")
+        if not args[2]:
+            print("** attribute name missing **")
+        if not args[3]:
+            print("** value missing **")
+        else:
+            storage.__objects[obj_id].update(args[2], args[3])
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
