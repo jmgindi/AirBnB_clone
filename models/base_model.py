@@ -11,12 +11,18 @@ class BaseModel():
     """
     nb_objects = 0
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         if id is not None:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.datetime.now()
             self.updated_at = datetime.datetime.now()
             self.__class__.nb_objects += 1
+        if kwargs is not None:
+            for key, value in kwargs:
+                if key is 'created_at' or key is 'updated_at':
+                    self.key = datetime.strtime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                if key is 'id':
+                    self.id = int(value)
 
     def __del__(self):
         self.__class__.nb_objects -= 1
