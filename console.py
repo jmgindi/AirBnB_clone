@@ -33,6 +33,7 @@ class HBNBCommand(cmd.Cmd):
     def do_EOF(self, arg):
         """also exits the program
         """
+        print()
         self.close()
         return True
 
@@ -47,7 +48,7 @@ class HBNBCommand(cmd.Cmd):
         """creates a new instance of a model
         and adds it to the json file
         """
-        if !args:
+        if not args:
             print("** class name missing **")
         if args[0] != "BaseModel":
             print("** class doesn't exist **")
@@ -55,24 +56,28 @@ class HBNBCommand(cmd.Cmd):
         return obj
 
     def do_show(self, *args):
-        if !args:
+        if not args:
             print("** class name missing **")
         if args[0] != "BaseModel":
             print("** class doesn't exist **")
-        if !args[1]:
+        if not args[1]:
             print("** instance id missing **")
+        """
         if args[1] not in [a thing]:
             print("** no instance found **")
+        """
 
     def do_destroy(self, *args):
-        if !args:
+        if not args:
             print("** class name missing **")
         if args[0] != "BaseModel":
             print("** class doesn't exist **")
-        if !args[1]:
+        if not args[1]:
             print("** instance id missing **")
+        """
         if args[1] not in [a thing]:
             print("** no instance found **")
+        """
 
     def do_all(self, *args):
         allowed = ["BaseModel", "FileStorage"]
