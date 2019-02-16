@@ -10,19 +10,29 @@ class BaseModel():
     """Base class for Holberton BnB project
     """
     nb_objects = 0
+    y = []
 
     def __init__(self, *args, **kwargs):
-        if id is not None:
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.datetime.now()
-            self.updated_at = datetime.datetime.now()
-            self.__class__.nb_objects += 1
+        self.id = str(uuid.uuid4())
+        self.created_at = datetime.datetime.now()
+        self.updated_at = datetime.datetime.now()
+        self.__class__.nb_objects += 1
         if kwargs is not None:
-            for key, value in kwargs:
-                if key is 'created_at' or key is 'updated_at':
-                    self.key = datetime.strtime(value, '%Y-%m-%dT%H:%M:%S.%f')
-                if key is 'id':
-                    self.id = int(value)
+            for key, dt_str in kwargs.items():
+                if key == "id":
+                    self.id = dt_str
+                if key == "created_at":
+                    dt, _, us= dt_str.partition(".")
+                    dt= datetime.datetime.strptime(dt, "%Y-%m-%dT%H:%M:%S")
+                    us= int(us.rstrip("Z"), 10)
+                    self.created_at = dt + datetime.timedelta(microseconds=us)
+                if key == "updated_at":
+                    dt, _, us= dt_str.partition(".")
+                    dt= datetime.datetime.strptime(dt, "%Y-%m-%dT%H:%M:%S")
+                    us= int(us.rstrip("Z"), 10)
+                    self.updated_at = dt + datetime.timedelta(microseconds=us)
+                self.y.append(key)
+                self.y.append(dt_str)
 
     def __del__(self):
         self.__class__.nb_objects -= 1
