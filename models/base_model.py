@@ -14,11 +14,11 @@ class BaseModel():
     y = []
 
     def __init__(self, *args, **kwargs):
-        storage.new(self)
         self.id = str(uuid.uuid4())
         self.created_at = datetime.datetime.now()
         self.updated_at = datetime.datetime.now()
         self.__class__.nb_objects += 1
+        models.storage.new(self)
         if kwargs is not None:
             for key, dt_str in kwargs.items():
                 if key == "id":
@@ -49,7 +49,7 @@ class BaseModel():
 
     def save(self):
         self.updated_at = datetime.datetime.now()
-        models.storage.save(self)
+        models.storage.save()
 
     def to_dict(self):
         if type(self.created_at) is not str:

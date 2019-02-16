@@ -13,26 +13,44 @@ class FileStorage():
     __file_path = ""      # path to the JSON file
     __objects = {}        # stores objects by [class].[id]
 
+    def __init__(self):
+        self.__class__.__objects = {}
+
     def all(self):
         return self.__class__.__objects
 
     def new(self, obj):
-       self.__class__.objects[str(obj)] = '{}.{}'.format(type(obj), obj.id)
+        self.__class__.__objects['{}.{}'.format(str(obj), obj.id)] = obj.to_dict()
 
     def save(self):
-        for obj in self.__class.__objects:
-            filename = ""
-            filename += self.__class__.__file_path
-            filename += '/'
-            filename += self.__class__.obj
-            with open(filename, mode="w") as file:
-                json.dump(filename, file)
-
-    def reload(self):
         for obj in self.__class__.__objects:
             filename = ""
             filename += self.__class__.__file_path
             filename += '/'
-            filename += self.__class__.obj
-            with open(filename, mode="r") as file:
-                return json.load(file) 
+            filename += obj
+            try:
+                with open(filename, mode="rb+") as file:
+                    pass
+            except FileNotFoundError:
+                with open('{}.py'.format(filename), mode="w") as file:
+                    pass
+
+
+    def reload(self):
+        if self.__class__.__objects is not None:
+            for obj in self.__class__.__objects:
+                filename = ""
+                filename += self.__class__.__file_path
+                filename += '/'
+                filename += obj
+                with open(filename, mode="r") as file:
+                    return json.load(file)
+
+    @property
+    def objects(self):
+        return self.__class__.__objects
+
+    @objects.setter
+    def objects(self):
+        tmp = {}
+        self.__class__.__objects = tmp
