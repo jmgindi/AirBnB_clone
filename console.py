@@ -21,7 +21,7 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb) "
     file = None        
-    allowed = ["BaseModel"]
+    allowed = ["BaseModel", "User"]
 
 
     def do_quit(self, arg):
@@ -60,18 +60,14 @@ class HBNBCommand(cmd.Cmd):
         """
         if not args:
             print("** class name missing **")
-            return
         if args[0] not in self.__allowed:
             print("** class doesn't exist **")
-            return
         if not args[1]:
             print("** instance id missing **")
-            return
-        """
-        if args[1] not in [a thing]:
+        if args[1] not in storage.__objects.keys():
             print("** no instance found **")
-        """
-        print(storage.__objects[(args[0] + "." + args[1])])
+        else:
+            print(storage.__objects[(args[0] + "." + args[1])])
 
     def do_destroy(self, *args):
         """deletes an instance of a model
@@ -82,10 +78,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         if not args[1]:
             print("** instance id missing **")
-        """
-        if args[1] not in [a thing]:
+        if args[1] not in storage.__objects.keys():
             print("** no instance found **")
-        """
 
     def do_all(self, *args):
         """prints all objects of a certain type
