@@ -10,14 +10,11 @@ import uuid
 class BaseModel():
     """Base class for Holberton BnB project
     """
-    nb_objects = 0
-    y = []
 
     def __init__(self, *args, **kwargs):
         self.id = str(uuid.uuid4())
         self.created_at = datetime.datetime.now()
         self.updated_at = datetime.datetime.now()
-        self.__class__.nb_objects += 1
         models.storage.new(self)
         if kwargs is not None:
             for key, dt_str in kwargs.items():
@@ -33,11 +30,8 @@ class BaseModel():
                     dt= datetime.datetime.strptime(dt, "%Y-%m-%dT%H:%M:%S")
                     us= int(us.rstrip("Z"), 10)
                     self.updated_at = dt + datetime.timedelta(microseconds=us)
-                self.y.append(key)
-                self.y.append(dt_str)
 
     def __del__(self):
-        self.__class__.nb_objects -= 1
         del(self)
 
     def __str__(self):
