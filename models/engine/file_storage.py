@@ -17,18 +17,20 @@ class FileStorage():
         self.__class__.__objects = {}
 
     def all(self):
+        """Returns list of all objects in storage"""
         return self.__class__.__objects
 
     def new(self, obj):
-        self.__class__.__objects['{}.{}'.format(str(obj), obj.id)] = obj.to_dict()
+        """Sets a new object's key and value in __objects"""
+        self.__class__.__objects['{}.{}'.format(str(obj), obj.id)] = obj
 
     def save(self):
-        """save"""
+        """Saves objects to file"""
         with open(FileStorage.__file_path, mode="w") as fp:
             json.dump(FileStorage.objects, fp)
 
     def reload(self):
-        """reload"""
+        """Reloads file from disk"""
         try:
             with open(FileStorage.__file_path) as fp:
                 data = json.load(fp)
@@ -37,9 +39,11 @@ class FileStorage():
 
     @property
     def objects(self):
+        """objects getter"""
         return self.__class__.__objects
 
     @objects.setter
     def objects(self):
+        """objects getter"""
         tmp = {}
         self.__class__.__objects = tmp
