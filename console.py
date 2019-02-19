@@ -10,19 +10,20 @@ module contains 1 class:
 """
 
 
-
 class HBNBCommand(cmd.Cmd):
     """HBNBCommand is a simple command line
     interpreter for the HBNB project
-    
-    Attributes:
-    prompt - 
-    file - 
+
+    Args
+        Attributes:
+        prompt - Prompt for console
+        file - None
+        allowed - List of allowed classes
     """
     prompt = "(hbnb) "
-    file = None        
-    allowed = ["BaseModel", "User", "State", "City", "Place", "Amenity", "Review"]
-
+    file = None
+    allowed = ["BaseModel", "User", "State",
+               "City", "Place", "Amenity", "Review"]
 
     def do_quit(self, arg):
         """quits the program
@@ -87,7 +88,7 @@ class HBNBCommand(cmd.Cmd):
         if args[0] not in self.__allowed:
             print("** class doesn't exist **")
         else:
-            print([obj for obj in storage.__objects if 
+            print([obj for obj in storage.__objects if
                    args[0] in obj.id])
 
     def do_update(self, *args):

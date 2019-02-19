@@ -6,14 +6,19 @@ which serializes/deserializes dictionaries/JSON files
 from models.base_model import BaseModel
 import json
 
+
 class FileStorage():
     """convert between dictionary string representations of
     objects and JSON files
+    Attributes
+        file_path: json file to store json formatted objs in
+        objects: Dict of objs by [class].[id]
     """
     __file_path = "file.json"      # path to the JSON file
     __objects = {}        # stores objects by [class].[id]
 
     def __init__(self):
+        """Initializes file storage class"""
         self.__class__.__objects = {}
 
     def all(self):
