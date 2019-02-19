@@ -15,7 +15,7 @@ class FileStorage():
         file_path: json file to store json formatted objs in
         objects: Dict of objs by [class].[id]
     """
-    __file_path = str(os.getcwd()) + "file.json"      # path to the JSON file
+    __file_path = str(os.getcwd()) + "/file.json"      # path to the JSON file
     __objects = {}        # stores objects by [class].[id]
 
     def __init__(self):
