@@ -2,7 +2,7 @@
 import cmd
 import sys
 from models.base_model import BaseModel
-
+from models.engine.file_storage import FileStorage
 
 """
 module contains 1 class:
@@ -22,7 +22,7 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb) "
     file = None
-    allowed = ["BaseModel", "User", "State",
+    __allowed = ["BaseModel", "User", "State",
                "City", "Place", "Amenity", "Review"]
 
     def do_quit(self, arg):
@@ -53,7 +53,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         if args[0] not in self.__allowed:
             print("** class doesn't exist **")
-        filestorage.save()
+        FileStorage.save()
         return obj
 
     def do_show(self, *args):
