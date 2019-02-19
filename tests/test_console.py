@@ -80,11 +80,10 @@ class testsForConsole(unittest.TestCase):
 
     def test_do_create_too_many_args(self):
         """Tests create with too many arguments"""
-        x = self.hbnb.do_create("BaseModel", "arg")
-        with self.
-
-    def test_create_too_many_correct(self):
-        """Tests that create ignores extra args"""
+        strio = io.StringIO()
+        with redirect_stdout(strio):
+            self.hbnb.do_create("BaseModel", "arg")
+            self.assertEqual(strio, "** too many args **"
 
     def test_create_arg_in_wrong_place(self):
         """Tests args in the wrong place"""
@@ -98,10 +97,18 @@ class testsForConsole(unittest.TestCase):
 
     def test_show_no_args(self):
         """Tests show with no args"""
+        strio = io.StringIO()
+        with redirected_stdout(strio):
+            self.hbnb.do_show()
+            self.assertEqual(strio, "** instance id missing **")
 
     def test_show_one(self):
         """Tests show with one correct arg"""
-        
+        strio = io.StringIO()
+        self.hbnb.do_show(BaseModel)
+        with redirected_stdout(strio):
+            self.assertEqual(strio, "")
+
     def test_show_one_bad(self):
         """Tests show with one bad arg"""
 
