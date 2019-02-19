@@ -64,14 +64,18 @@ class HBNBCommand(cmd.Cmd):
         args = arg.split()
         if not args or len(args) == 0:
             print("** class name missing **")
-        elif args[0] not in self.__allowed:
+        elif args[0] not in self.__allowed.keys():
             print("** class doesn't exist **")
         elif len(args) < 2:
             print("** instance id missing **")
-        elif args[1] not in models.storage.objects.keys():
+        flag = 0
+        for key in models.storage.all().keys():
+            tmp = key.split('.')
+            if len(args) > 1 and args[1] in tmp:
+                flag = 1
+                print(models.storage.objects[(args[0] + "." + args[1])])
+        if flag == 0:
             print("** no instance found **")
-        else:
-            print(models.storage.objects[(args[0] + "." + args[1])])
 
     def do_destroy(self, arg):
         """deletes an instance of a model
@@ -79,7 +83,7 @@ class HBNBCommand(cmd.Cmd):
         args = arg.split()
         if not args:
             print("** class name missing **")
-        elif args[0] not in self.__allowed:
+        elif args[0] not in self.__allowed.keys():
             print("** class doesn't exist **")
         elif not args[1]:
             print("** instance id missing **")
@@ -89,11 +93,13 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, arg):
         """prints all objects of a certain type
         """
-        if arg not in self.__allowed:
+        if not arg:
+            print([str(obj) for obj in models.storage.all().values()])
+        if arg not in self.__allowed.keys():
             print("** class doesn't exist **")
         else:
-            print([obj for obj in models.storage.objects if
-                   arg in obj.id])
+            print([str(obj) for key, obj in models.storage.all().items() if
+                   arg in key])
 
     def do_update(self, arg):
         """updates the value of an attribute for a
@@ -102,7 +108,7 @@ class HBNBCommand(cmd.Cmd):
         args = arg.split()
         if not args:
             print("** class name missing **")
-        if args[0] not in self.__allowed:
+        if args[0] not in self.__allowed.keys():
             print("** class doesn't exist **")
         if not args[1]:
             print("** instance id missing **")
