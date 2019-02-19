@@ -21,7 +21,7 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb) "
     file = None        
-    allowed = ["BaseModel", "User"]
+    allowed = ["BaseModel", "User", "State", "City", "Place", "Amenity", "Review"]
 
 
     def do_quit(self, arg):
@@ -48,17 +48,17 @@ class HBNBCommand(cmd.Cmd):
         """creates a new instance of a model
         and adds it to the json file
         """
-        if not args:
+        if not args or len(args) == 0:
             print("** class name missing **")
         if args[0] not in self.__allowed:
             print("** class doesn't exist **")
-        obj = BaseModel()
+        filestorage.save()
         return obj
 
     def do_show(self, *args):
         """prints the string representation of a model
         """
-        if not args:
+        if not args or len(args) == 0:
             print("** class name missing **")
         if args[0] not in self.__allowed:
             print("** class doesn't exist **")
