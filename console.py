@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 import cmd
 import sys
-from models.base_model import BaseModel
-from models.engine.file_storage import FileStorage
+import models
 
 """
 module contains 1 class:
@@ -22,8 +21,10 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb) "
     file = None
-    __allowed = ["BaseModel", "User", "State",
-               "City", "Place", "Amenity", "Review"]
+    __allowed = {"BaseModel" : models.base_model.BaseModel()}
+    # "User" : User(),
+    #             "State" : State(), "City" : City(), "Place" : Place(),
+    #             "Amenity" : Amenity(), "Review" : Review()}
 
     def do_quit(self, arg):
         """quits the program
@@ -45,56 +46,60 @@ class HBNBCommand(cmd.Cmd):
             self.file.close()
             self.file = None
 
-    def do_create(self, *args):
+    def do_create(self, arg):
         """creates a new instance of a model
         and adds it to the json file
         """
-        if not args or len(args) == 0:
+        if not arg:
             print("** class name missing **")
-        if args[0] not in self.__allowed:
+        elif arg not in self.__allowed.keys():
             print("** class doesn't exist **")
-        FileStorage.save()
-        return obj
+        else:
+            obj = self.__allowed[arg]
+            print(obj.id)
 
-    def do_show(self, *args):
+    def do_show(self, arg):
         """prints the string representation of a model
         """
+        args = arg.split()
         if not args or len(args) == 0:
             print("** class name missing **")
-        if args[0] not in self.__allowed:
+        elif args[0] not in self.__allowed:
             print("** class doesn't exist **")
-        if not args[1]:
+        elif len(args) < 2:
             print("** instance id missing **")
-        if args[1] not in storage.__objects.keys():
+        elif args[1] not in models.storage.objects.keys():
             print("** no instance found **")
         else:
-            print(storage.__objects[(args[0] + "." + args[1])])
+            print(models.storage.objects[(args[0] + "." + args[1])])
 
-    def do_destroy(self, *args):
+    def do_destroy(self, arg):
         """deletes an instance of a model
         """
+        args = arg.split()
         if not args:
             print("** class name missing **")
-        if args[0] not in self.__allowed:
+        elif args[0] not in self.__allowed:
             print("** class doesn't exist **")
-        if not args[1]:
+        elif not args[1]:
             print("** instance id missing **")
-        if args[1] not in storage.__objects.keys():
+        elif args[1] not in models.storage.objects.keys():
             print("** no instance found **")
 
-    def do_all(self, *args):
+    def do_all(self, arg):
         """prints all objects of a certain type
         """
-        if args[0] not in self.__allowed:
+        if arg not in self.__allowed:
             print("** class doesn't exist **")
         else:
-            print([obj for obj in storage.__objects if
-                   args[0] in obj.id])
+            print([obj for obj in models.storage.objects if
+                   arg in obj.id])
 
-    def do_update(self, *args):
+    def do_update(self, arg):
         """updates the value of an attribute for a
         given object
         """
+        args = arg.split()
         if not args:
             print("** class name missing **")
         if args[0] not in self.__allowed:
@@ -104,14 +109,14 @@ class HBNBCommand(cmd.Cmd):
 
         obj_id = args[0] + "." + args[1]
 
-        if obj_id not in storage.__objects.keys():
+        if obj_id not in models.storage.objects.keys():
             print("** no instance found **")
         if not args[2]:
             print("** attribute name missing **")
         if not args[3]:
             print("** value missing **")
         else:
-            storage.__objects[obj_id].update(args[2], args[3])
+            models.storage.objects[obj_id].update(args[2], args[3])
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
