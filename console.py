@@ -110,21 +110,24 @@ class HBNBCommand(cmd.Cmd):
         args = arg.split()
         if not args:
             print("** class name missing **")
-        if args[0] not in self.__allowed.keys():
+        elif args[0] not in self.__allowed.keys():
             print("** class doesn't exist **")
-        if not args[1]:
+        elif not args[1]:
             print("** instance id missing **")
 
         obj_id = args[0] + "." + args[1]
 
         if obj_id not in models.storage.objects.keys():
             print("** no instance found **")
-        if not args[2]:
+            pass
+        elif not args[2]:
             print("** attribute name missing **")
-        if not args[3]:
+            pass
+        elif not args[3]:
             print("** value missing **")
+            pass
         else:
-            models.storage.objects[obj_id].update(args[2], args[3])
+            setattr(models.storage.objects[obj_id], args[2], args[3])
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
