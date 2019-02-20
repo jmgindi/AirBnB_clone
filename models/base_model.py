@@ -18,24 +18,21 @@ class BaseModel():
             args: args
             kwargs: Dictionary of object attributes
         """
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
-        models.storage.new(self)
-        if kwargs is not None:
-            for key, dt_str in kwargs.items():
-                if key == "id":
-                    self.id = dt_str
-                if key == "created_at":
-                    dt, _, us = dt_str.partition(".")
-                    dt = datetime.datetime.strptime(dt, "%Y-%m-%dT%H:%M:%S")
-                    us = int(us.rstrip("Z"), 10)
-                    self.created_at = dt + datetime.timedelta(microseconds=us)
-                if key == "updated_at":
-                    dt, _, us = dt_str.partition(".")
-                    dt = datetime.datetime.strptime(dt, "%Y-%m-%dT%H:%M:%S")
-                    us = int(us.rstrip("Z"), 10)
-                    self.updated_at = dt + datetime.timedelta(microseconds=us)
+        if len(kwargs) > 0:
+            self.init_with_kwargs(**kwargs)
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.datetime.now()
+            self.updated_at = datetime.datetime.now()
+            models.storage.new(self)
+
+    def init_with_kwargs(**kwargs):
+        for (k, v) in kwargs.items():
+            if k in ('created_at', 'updated_at'):
+                tmp = self.__dict__[k]
+                tmp = datetime.datetime.strptime(v, "%Y-%m-%dT%H:%M:%S.%f")
+            else:
+                self.__dict__[k] = v
 
     def __del__(self):
         """Deletes object"""
