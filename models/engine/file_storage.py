@@ -4,6 +4,11 @@ which serializes/deserializes dictionaries/JSON files
 """
 
 from models.base_model import BaseModel
+from models.user import User
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
 # import models
 import json
 import os
@@ -18,7 +23,10 @@ class FileStorage():
     """
     __file_path = str(os.getcwd()) + "/file.json"      # path to the JSON file
     __objects = {}        # stores objects by [class].[id]
-    __allowed = {"BaseModel" : BaseModel}
+    __allowed = {
+        "BaseModel" : BaseModel, "User" : User, "Place" : Place,
+        "City" : City, "Review" : Review, "State" : State
+        }
 
     def __init__(self):
         """Initializes file storage class"""
