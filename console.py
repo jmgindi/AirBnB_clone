@@ -27,7 +27,8 @@ class HBNBCommand(cmd.Cmd):
         "Place": models.place.Place(),
         "City": models.city.City(),
         "Review": models.review.Review(),
-        "State": models.state.State()
+        "State": models.state.State(),
+        "Amenity": models.amenity.Amenity()
         }
     # "User" : User(),
     #             "State" : State(), "City" : City(), "Place" : Place(),
