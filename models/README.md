@@ -9,6 +9,14 @@ This project in the System engineering & DevOps series is about:
 ---
 File|Task
 ---|---
+base_model.py | 
+city.py | 
+engine | 
+__init__.py | 
+place.py | 
+review.py | 
+state.py | 
+user.py | 
 
 ## Author
  Andrew Lindburg
