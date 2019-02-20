@@ -56,8 +56,8 @@ class BaseModel():
         Return:
             Dict of all obj attributes
         """
-        temp_d = self.__dict__.copy()
-        temp_d['__class__'] = self.__class__.__name__
-        temp_d['created_at'] = self.created_at.isoformat()
-        temp_d['updated_at'] = self.updated_at.isoformat()
-        return temp_d
+        tmp = self.__dict__.copy()
+        tmp['__class__'] = self.__class__.__name__
+        tmp['created_at'] = self.created_at.isoformat()
+        tmp['updated_at'] = self.updated_at.isoformat()
+        return tmp
