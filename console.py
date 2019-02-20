@@ -127,7 +127,10 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             pass
         else:
-            setattr(models.storage.objects[obj_id], args[2], args[3])
+            if arg[2] == "updated_at" or arg[2] == "created_at":
+                pass
+            else:
+                setattr(models.storage.objects[obj_id], args[2], args[3])
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
