@@ -70,7 +70,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
         flag = 0
         for key in models.storage.all().keys():
-            tmp = key.split('.')
+            tmp = str(key).split('.')
             if len(args) > 1 and args[1] in tmp:
                 flag = 1
                 print(models.storage.objects[(args[0] + "." + args[1])])
@@ -87,8 +87,10 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
         elif not args[1]:
             print("** instance id missing **")
-        elif args[1] not in models.storage.objects.keys():
+        elif (args[0] + "." + args[1]) not in models.storage.objects.keys():
             print("** no instance found **")
+        else:
+            del models.storage.objects[args[0] + "." + args[1]]
 
     def do_all(self, arg):
         """prints all objects of a certain type
