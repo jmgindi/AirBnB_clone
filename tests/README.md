@@ -2,8 +2,6 @@
 ---
 ## Description
 
-This project in the System engineering & DevOps series is about:
-
 *Unit tests for Air_BnB clone.
 
 ---
