@@ -26,7 +26,7 @@ class BaseModel():
             self.updated_at = datetime.datetime.now()
             models.storage.new(self)
 
-    def init_with_kwargs(**kwargs):
+    def init_with_kwargs(self, **kwargs):
         for (k, v) in kwargs.items():
             if k in ('created_at', 'updated_at'):
                 tmp = self.__dict__[k]
@@ -56,9 +56,8 @@ class BaseModel():
         Return:
             Dict of all obj attributes
         """
-        if type(self.created_at) is not str:
-            self.__dict__['created_at'] = self.created_at.isoformat()
-        if type(self.updated_at) is not str:
-            self.__dict__['updated_at'] = self.updated_at.isoformat()
-        self.__dict__['__class__'] = self.__class__.__name__
-        return self.__dict__
+        temp_d = self.__dict__.copy()
+        temp_d['__class__'] = self.__class__.__name__
+        temp_d['created_at'] = self.created_at.isoformat()
+        temp_d['updated_at'] = self.updated_at.isoformat()
+        return temp_d
