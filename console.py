@@ -22,12 +22,12 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     file = None
     __allowed = {
-        "BaseModel" : models.base_model.BaseModel(),
-        "User" : models.user.User(),
-        "Place" : models.place.Place(),
-        "City" : models.city.City(),
-        "Review" : models.review.Review(),
-        "State" : models.state.State()
+        "BaseModel": models.base_model.BaseModel(),
+        "User": models.user.User(),
+        "Place": models.place.Place(),
+        "City": models.city.City(),
+        "Review": models.review.Review(),
+        "State": models.state.State()
         }
     # "User" : User(),
     #             "State" : State(), "City" : City(), "Place" : Place(),
