@@ -23,7 +23,7 @@ class testBaseModelInit(unittest.TestCase):
 
     def test_kwargs_casts_id(self):
         c = BaseModel(id=41571)
-        self.assertEqual(type(c.id), str)
+        self.assertEqual(type(c.id), int)
 
     def test_kwargs_created_at(self):
         """Tests that created_at is copied to object loaded
