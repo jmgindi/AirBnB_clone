@@ -27,6 +27,7 @@ class BaseModel():
             models.storage.new(self)
 
     def init_with_kwargs(self, **kwargs):
+        """init with a dictionary"""
         for (k, v) in kwargs.items():
             if k in ('created_at', 'updated_at'):
                 tmp = self.__dict__[k]
