@@ -115,7 +115,8 @@ class HBNBCommand(cmd.Cmd):
         """prints all objects of a certain type
         """
         if not arg:
-            print([str(obj) for obj in models.storage.all().values()])
+            if models.storage.all().values():
+                print([str(obj) for obj in models.storage.all().values()])
         if arg and arg not in self.__allowed:
             print("** class doesn't exist **")
         else:
