@@ -52,7 +52,7 @@ class FileStorage():
             return
         tmp = {}
         for k, v in data.items():
-            tmp[k] = eval(k.split(".")[0] + '(**vi)')
+            tmp[k] = eval(k.split(".")[0] + '(**v)')
             FileStorage.__objects = tmp
 
     @property
