@@ -28,6 +28,7 @@ class HBNBCommand(cmd.Cmd):
     """
     prompt = "(hbnb) "
     file = None
+    
     __allowed = [
         "BaseModel",
         "User",
