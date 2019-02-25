@@ -23,10 +23,6 @@ class FileStorage():
     """
     __file_path = str(os.getcwd()) + "/file.json"      # path to the JSON file
     __objects = {}        # stores objects by [class].[id]
-    __allowed = {
-        "BaseModel" : BaseModel, "User" : User, "Place" : Place,
-        "City" : City, "Review" : Review, "State" : State, "Amenity" : Amenity
-        }
 
     def __init__(self):
         """Initializes file storage class"""
@@ -38,8 +34,9 @@ class FileStorage():
 
     def new(self, obj):
         """Sets a new object's key and value in __objects"""
-        FileStorage.__objects['{}.{}'.format(obj.__class__.__name__, obj.id)] = obj
-        self.save()
+        tmp_dict = obj.to_dict()
+        obj_key = tmp_dict['__class__'] + '.' + str(tmp_dict['id'])
+        self.__objects[obj_key] = obj
 
     def save(self):
         """Saves objects to file"""
@@ -53,10 +50,10 @@ class FileStorage():
                 data = json.load(fp)
         except FileNotFoundError:
             return
+        tmp = {}
         for k, v in data.items():
-            tmp = k.split(".")
-            class_name = tmp[0]
-            FileStorage.__objects[k] = FileStorage.__allowed[class_name](v)
+            tmp[k] = eval(k.split(".")[0] + '(**v)')
+            FileStorage.__objects = tmp
 
     @property
     def objects(self):
