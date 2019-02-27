@@ -2,7 +2,7 @@ header {
   background-color: white;
   width: 100%;
   height: 70px;
-  border-bottom: 1px #cccccc;
+  border-bottom: 1px solid #cccccc;
   display: flex;
   justify-content: space-around;
 }
@@ -14,5 +14,5 @@ header {
   align-items: flex-start;
   background-image: url('../images/logo.png');
   background-repeat: no-repeat;
-  background-position-x 20px;
+  background-position-x: 20px;
 }
