@@ -1,0 +1,106 @@
+.container section.places {
+    text-align: left;
+    display: inline-block;
+    justify-content: center;
+}
+
+section.places div h1 {
+    position: relative;
+    width: 100%;
+    vertical-align: top;
+    text-align: left;
+    font-size: 30px;
+}
+
+section.places div.article {
+    display: inline-flex;
+    flex-flow: row wrap;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    width: 390px;
+    margin: 20px;
+    padding: 20px;
+    border: 1px solid #ff5a5f;
+    border-radius: 4px;
+}
+
+article h2 {
+    align-self: center;
+    font-size: 30px;
+    margin-top: 0px;
+}
+
+div.article div.price_by_night {
+    display: inline-block;
+    color: #ff5a5f;
+    border: 4px solid #ff5a5f;
+    padding: 5px;
+    margin-left: 60px;
+    border-radius: 50%;
+    min-width: 60px;
+    height: 60px;
+    font-size: 30px;
+    vertical-align: top;
+    align-content: center;
+    line-height: 60px;
+}
+
+div.article div.information {
+    height: 80px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #DDDDDD;
+    border-bottom: 1px solid #DDDDDD;
+    vertical-align: center;
+    display: inline-flex;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+    float: right;
+    width: 100%;
+}
+
+div.information div.max_guest {
+    width: 100px;
+    background-image: url(../images/icon_group.png);
+    background-size: 60px;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    display: inline-block;
+}
+
+div.information div.number_rooms {
+    width: 100px;
+    background-image: url(../images/icon_bed.png);
+    background-size: 60px;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    display: inline-block;
+}
+
+div.information div.number_bathrooms {
+    width: 100px;
+    background-image: url(../images/icon_bath.png);
+    background-size: 60px;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100%;
+    display: inline-block;
+}
+
+div.article div.user {
+    text-align: left;
+    display: inline-flex;
+    width: 100%;
+    margin-top: 15px;
+}
+
+div.article div.description {
+    text-align: left;
+    display: inline-flex;
+    width: 100%;
+    margin-top: 5px;
+}
